@@ -26,7 +26,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes nettle-dev
 
-      - name: Install cargo-hack from crates.io
+      - name: Install sequoia-sq from crates.io
         uses: baptiste0928/cargo-install@v2
         with:
           crate: sequoia-sq
