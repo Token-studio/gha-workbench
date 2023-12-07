@@ -26,16 +26,15 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install dep packages
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes sq
+          cargo install sequoia-sq
 
       # Runs a set of commands using the runners shell
       - name: Get bootstrap tar
         run: |
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
-          sq -o release-key.pgp wkd get pierre@archlinux.org 
-          sq --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig verify archlinux-bootstrap-x86_64.tar.gz
+          sq wkd get pierre@archlinux.org -o release-key.pgp
+          sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
 
       - name: Run a multi-line script
         run: |
