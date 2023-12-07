@@ -39,5 +39,5 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          tar xf archlinux-bootstrap-x86_64.tar
-          zstdmt archlinux-bootstrap-x86_64.tar
+          tar xf archlinux-bootstrap-x86_64.tar.gz
+          ls -alh
