@@ -36,5 +36,5 @@ jobs:
           file hoge.tar.zst
           ls -alh hoge.tar.zst
           unzstd hoge.tar.zst
-          file hoge.tar.zst
+          file hoge.tar
           ls -alh hoge.tar
