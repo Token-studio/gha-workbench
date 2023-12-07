@@ -43,13 +43,19 @@ jobs:
           sq wkd get pierre@archlinux.org -o release-key.pgp
           sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
 
-      - name: Run a multi-line script
-        run: |
-          tar xf archlinux-bootstrap-x86_64.tar.gz
-          ls -alh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bootstrap-archive
+          path: archlinux-bootstrap-x86_64.tar.gz
+          if-no-files-found: error
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Download bootstrap archive
+        uses: actions/download-artifact@v3
+        with:
+          name: bootstrap-archive
       - name: get status
         run: |
           ls -alh
