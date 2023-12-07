@@ -61,4 +61,6 @@ jobs:
         run: |
           ls -alh
           pwd
+          tar xf archlinux-bootstrap-x86_64.tar.gz
+          ansible --version
 
