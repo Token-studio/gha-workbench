@@ -20,17 +20,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
       # Runs a single command using the runners shell
       - name: Install dep packages
-        if: false
         run: |
           sudo apt-get update
           sudo apt-get install --yes nettle-dev
-          cargo install sequoia-sq
 
+      - name: Install cargo-hack from crates.io
+        uses: baptiste0928/cargo-install@v2
+        with:
+          crate: sequoia-sq
       # Runs a set of commands using the runners shell
       - name: Get bootstrap archive
         run: |
@@ -38,7 +37,6 @@ jobs:
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
 
       - name: Verify the archive
-        if: false
         run: |
           sq wkd get pierre@archlinux.org -o release-key.pgp
           sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
@@ -53,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: fetch
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
       - name: Download bootstrap archive
         uses: actions/download-artifact@v3
         with:
