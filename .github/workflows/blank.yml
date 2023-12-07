@@ -34,3 +34,7 @@ jobs:
           echo fuga > hoge/hoge.txt
           tar -cf hoge.tar.zst hoge
           file hoge.tar.zst
+          ls -alh hoge.tar.zst
+          unzstd hoge.tar.zst
+          file hoge.tar.zst
+          ls -alh hoge.tar
