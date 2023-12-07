@@ -34,6 +34,8 @@ jobs:
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
           ls -alh
           unzstd archlinux-bootstrap-x86_64.tar.gz
+          tar xf archlinux-bootstrap-x86_64.tar
           zstdmt archlinux-bootstrap-x86_64.tar
+          zstdmt --train archlinux-bootstrap-x86_64.tar -o dict
+          zstdmt -D dict archlinux-bootstrap-x86_64.tar -o wd_archlinux-bootstrap-x86_64.tar.zst
           ls -alh
-          ls -alh hoge.tar
