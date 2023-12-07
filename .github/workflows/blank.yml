@@ -34,8 +34,8 @@ jobs:
         run: |
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
-          sq wkd get pierre@archlinux.org -o release-key.pgp
-          sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
+          sq -o release-key.pgp wkd get pierre@archlinux.org 
+          sq --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig verify archlinux-bootstrap-x86_64.tar.gz
 
       - name: Run a multi-line script
         run: |
