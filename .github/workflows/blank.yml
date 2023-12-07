@@ -26,6 +26,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install dep packages
         run: |
+          sudo apt-get update
+          sudo apt-get install --yes nettle-dev
           cargo install sequoia-sq
 
       # Runs a set of commands using the runners shell
