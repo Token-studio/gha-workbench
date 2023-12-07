@@ -30,11 +30,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          mkdir hoge
-          echo fuga > hoge/hoge.txt
-          tar -acf hoge.tar.zst hoge
-          file hoge.tar.zst
-          ls -alh hoge.tar.zst
-          unzstd hoge.tar.zst
-          file hoge.tar
+          curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz
+          curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
+          ls -alh
+          unzstd archlinux-bootstrap-x86_64.tar.gz
+          zstdmt archlinux-bootstrap-x86_64.tar
+          ls -alh
           ls -alh hoge.tar
