@@ -35,6 +35,7 @@ jobs:
           ls -alh
           unzstd archlinux-bootstrap-x86_64.tar.gz
           tar xf archlinux-bootstrap-x86_64.tar
+          ls -alh
           zstdmt archlinux-bootstrap-x86_64.tar
           zstdmt --train archlinux-bootstrap-x86_64.tar -o dict
           zstdmt -D dict archlinux-bootstrap-x86_64.tar -o wd_archlinux-bootstrap-x86_64.tar.zst
