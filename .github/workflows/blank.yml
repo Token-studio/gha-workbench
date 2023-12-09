@@ -20,6 +20,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v4
+
       # Runs a set of commands using the runners shell
       - name: Get bootstrap archive
         run: |
@@ -29,10 +31,7 @@ jobs:
       - name: Verify the archive
         uses: docker://alpine:edge
         with:
-          entrypoint: |
-            apk add sequoia-sq &&
-            sq wkd get pierre@archlinux.org -o release-key.pgp &&
-            sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
+          args: fetch/verify.sh 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
