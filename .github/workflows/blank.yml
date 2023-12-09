@@ -30,8 +30,8 @@ jobs:
         uses: docker://registry.gitlab.com/sequoia-pgp/sequoia:latest
         with:
           args: | 
-            sq wkd get pierre@archlinux.org -o release-key.pgp
-            sq verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
+            wkd get pierre@archlinux.org -o release-key.pgp
+            verify --signer-file release-key.pgp --detached archlinux-bootstrap-x86_64.tar.gz.sig archlinux-bootstrap-x86_64.tar.gz
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
