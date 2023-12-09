@@ -31,6 +31,7 @@ jobs:
       - name: Verify the archive
         uses: docker://alpine:edge
         with:
+          entrypoint: /bin/sh
           args: fetch/verify.sh 
 
       - name: Upload artifact
