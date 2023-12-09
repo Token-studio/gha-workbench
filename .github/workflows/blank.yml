@@ -26,6 +26,10 @@ jobs:
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz
           curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
 
+      - name: Print sequoia version
+        uses: docker://registry.gitlab.com/sequoia-pgp/sequoia:latest
+        with:
+          args: --version
       - name: Get public key
         uses: docker://registry.gitlab.com/sequoia-pgp/sequoia:latest
         with:
