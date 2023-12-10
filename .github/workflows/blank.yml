@@ -97,7 +97,10 @@ jobs:
 
       - name: get status
         run: |
-          mkfs.btrfs --help
-          truncate --help
-          sha512sum --help
-          b2sum --help
+          sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          truncate -s 1G arch.img
+          mkfs.btrfs arch.img
+          mkdir mnt
+          mount arch.img mnt
+          mv ${{ env.BOOTSTRAP_DIR }}/* mnt/
+
