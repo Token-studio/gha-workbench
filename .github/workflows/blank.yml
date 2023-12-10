@@ -106,7 +106,7 @@ jobs:
       - name: mount
         run: |
           sudo mkdir mnt
-          sudo mount ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
+          sudo mount -t btrfs ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
       - name: btrfs commands
         run: |
           sudo btrfs subvolume create arch 
