@@ -101,6 +101,11 @@ jobs:
           truncate -s 1G arch.img
           mkfs.btrfs arch.img
           mkdir mnt
-          sudo mount arch.img mnt
-          mv ${{ env.BOOTSTRAP_DIR }}/* mnt/
+          sudo mount arch.img mnt -o defaults,compress=zstd,noatime,space_cache,subvol=/
+          sudo btrfs subvolume create arch 
+          sudo mv ${{ env.BOOTSTRAP_DIR }}/* mnt/arch/
+          sudo btrfs subvolume snapshot -r mnt/arch mnt/out
+          sudo btrfs send mnt/out | zstdmt -o out.stream.zst
+          file out.stream.zst
+
 
