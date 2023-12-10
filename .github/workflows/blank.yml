@@ -113,8 +113,10 @@ jobs:
         run: |
           sudo btrfs subvolume create arch 
           sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
-          sudo btrfs subvolume snapshot -r ./mnt/arch ./mnt/out
+          cd ./mnt
+          sudo btrfs subvolume snapshot -r ./arch ./out
+
       - name: send
         run: |
-          sudo btrfs send mnt/out | zstdmt -o out.stream.zst
+          sudo btrfs send ./mnt/out | zstdmt -o ./out.stream.zst
           file out.stream.zst
