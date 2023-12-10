@@ -65,7 +65,7 @@ jobs:
         run: |
           ls -alh
           pwd
-          tar --preserve-permissions xf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
           ansible --version
           ansible-galaxy --version
