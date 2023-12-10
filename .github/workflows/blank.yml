@@ -101,6 +101,6 @@ jobs:
           truncate -s 1G arch.img
           mkfs.btrfs arch.img
           mkdir mnt
-          mount arch.img mnt
+          sudo mount arch.img mnt
           mv ${{ env.BOOTSTRAP_DIR }}/* mnt/
 
