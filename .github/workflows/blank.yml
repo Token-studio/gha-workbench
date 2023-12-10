@@ -113,7 +113,8 @@ jobs:
         run: |
           cd ./mnt
           sudo btrfs subvolume create arch 
-          sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
+      - name: copy bootstrap files
+        run: sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
       - name: create snapshot
         run: |
           cd ./mnt
