@@ -111,6 +111,7 @@ jobs:
 
       - name: create subvol
         run: |
+          cd ./mnt
           sudo btrfs subvolume create arch 
           sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
       - name: create snapshot
