@@ -84,3 +84,5 @@ jobs:
         run: |
           mkfs.btrfs --help
           truncate --help
+          sha512sum --help
+          b2sum --help
