@@ -35,7 +35,7 @@ jobs:
           args: fetch/verify.sh 
 
       - name: Re-compress bootstrap archive
-        run: zstdcat archlinux-bootstrap-x86_64.tar.gz | zstdmt -
+        run: zstdcat archlinux-bootstrap-x86_64.tar.gz | zstdmt -O archlinux-bootstrap-x86_64.tar.zst -
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
