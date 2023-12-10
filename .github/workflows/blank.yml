@@ -87,7 +87,7 @@ jobs:
 
   make-subvol:
     runs-on: ubuntu-latest
-    needs: fetch
+    needs: build
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Download bootstrap archive
@@ -115,6 +115,7 @@ jobs:
           sudo btrfs subvolume create arch 
       - name: copy bootstrap files
         run: sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
+
       - name: create snapshot
         run: |
           cd ./mnt
@@ -124,3 +125,10 @@ jobs:
         run: |
           sudo btrfs send ./mnt/out | zstdmt -o ./out.stream.zst
           file out.stream.zst
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bootstrap-archive
+          path: out.stream.zst
+          if-no-files-found: error
