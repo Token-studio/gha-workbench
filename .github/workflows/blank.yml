@@ -11,6 +11,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  MIRROR_PREFIX: https://cloudflaremirrors.com
+  BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.gz
+  ZSTD_BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.zst
+  BOOTSTRAP_DIR: root.x86_64
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,8 +31,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Get bootstrap archive
         run: |
-          curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz
-          curl -LO https://cloudflaremirrors.com/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.gz.sig
+          curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
+          curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
 
       - name: Verify the archive
         uses: docker://alpine:edge
@@ -35,14 +41,15 @@ jobs:
           args: fetch/verify.sh 
 
       - name: Re-compress bootstrap archive
-        run: zstdcat archlinux-bootstrap-x86_64.tar.gz | zstdmt -o archlinux-bootstrap-x86_64.tar.zst -
+        run: zstdcat ${{ env.BOOTSTRAP_ARCHIVE_NAME }} | zstdmt -o ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} -
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: bootstrap-archive
-          path: archlinux-bootstrap-x86_64.tar.zst
+          path: ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
+
   build:
     runs-on: ubuntu-latest
     needs: fetch
@@ -58,7 +65,22 @@ jobs:
         run: |
           ls -alh
           pwd
-          tar xf archlinux-bootstrap-x86_64.tar.zst
-          ls -alt
+          tar xf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          ls -alh ${{ env.BOOTSTRAP_DIR }}
           ansible --version
           ansible-galaxy --version
+
+  make-subvol:
+    runs-on: ubuntu-latest
+    needs: fetch
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Download bootstrap archive
+        uses: actions/download-artifact@v3
+        with:
+          name: bootstrap-archive
+
+      - name: get status
+        run: |
+          mkfs.btrfs --help
+          truncate --help
