@@ -33,7 +33,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Get bootstrap signature
-        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
+        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_SIGNATURE_NAME }}
       - name: print b2sum of signature
         id: bootstrap-signature
         run: b2sum --binary ${{ env.BOOTSTRAP_ARCHIVE_SIGNATURE_NAME }} | cut -d ' ' -f 1 | xargs printf "signature-hash=%s" >> "$GITHUB_OUTPUT"
@@ -47,7 +47,7 @@ jobs:
 
       - if: ${{ steps.cache-archive.outputs.cache-hit != 'true' }}
         name: Get bootstrap archive 
-        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
+        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
 
       - name: Verify the archive
         uses: docker://alpine:edge
