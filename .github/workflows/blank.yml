@@ -107,7 +107,7 @@ jobs:
         run: |
           sudo mkdir mnt
           # sudo mount -t btrfs ./arch.img ./mnt
-          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime,space_cache
+          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime
 
       - name: btrfs commands
         run: |
