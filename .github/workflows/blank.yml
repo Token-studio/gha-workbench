@@ -14,6 +14,7 @@ on:
 env:
   MIRROR_PREFIX: https://cloudflaremirrors.com
   BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.gz
+  BOOTSTRAP_ARCHIVE_SIGNATURE_NAME: archlinux-bootstrap-x86_64.tar.gz.sig
   ZSTD_BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.zst
   BOOTSTRAP_DIR: root.x86_64
 
@@ -24,15 +25,29 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    outputs:
+      bootstrap-signature-hash: ${{ steps.bootstrap-signature.outputs.signature-hash }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v4
 
       # Runs a set of commands using the runners shell
-      - name: Get bootstrap archive
-        run: |
-          curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
-          curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
+      - name: Get bootstrap signature
+        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
+      - name: print b2sum of signature
+        id: bootstrap-signature
+        run: b2sum --binary ${{ env.BOOTSTRAP_ARCHIVE_SIGNATURE_NAME }} | cut -d ' ' -f 1 | xargs printf "signature-hash=%s" >> "$GITHUB_OUTPUT"
+
+      - name: Cache bootstrap archive
+        id: cache-archive
+        uses: actions/cache@v3
+        with:
+          path: ./${{ env.BOOTSTRAP_ARCHIVE_NAME }}
+          key: bootstrap-archive-${{ steps.bootstrap-signature.outputs.signature-hash }}
+
+      - if: ${{ steps.cache-archive.outputs.cache-hit != 'true' }}
+        name: Get bootstrap archive 
+        run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}.sig
 
       - name: Verify the archive
         uses: docker://alpine:edge
@@ -65,7 +80,7 @@ jobs:
         run: |
           ls -alh
           pwd
-          tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
           ansible --version
           ansible-galaxy --version
