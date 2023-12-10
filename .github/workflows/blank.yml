@@ -109,10 +109,12 @@ jobs:
           # sudo mount -t btrfs ./arch.img ./mnt
           sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime
 
-      - name: btrfs commands
+      - name: create subvol
         run: |
           sudo btrfs subvolume create arch 
           sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
+      - name: create snapshot
+        run: |
           cd ./mnt
           sudo btrfs subvolume snapshot -r ./arch ./out
 
