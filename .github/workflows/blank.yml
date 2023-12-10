@@ -95,16 +95,25 @@ jobs:
         with:
           name: bootstrap-archive
 
-      - name: get status
+      - name : untar
+        run: sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+
+      - name: mkfs.btrfs
         run: |
-          sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           truncate -s 1G arch.img
           mkfs.btrfs arch.img
-          mkdir mnt
-          sudo mount arch.img mnt -o defaults,compress=zstd,noatime,space_cache,subvol=/
+
+      - name: mount
+        run: |
+          sudo mkdir mnt
+          sudo mount ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
+      - name: btrfs commands
+        run: |
           sudo btrfs subvolume create arch 
           sudo mv ${{ env.BOOTSTRAP_DIR }}/* mnt/arch/
           sudo btrfs subvolume snapshot -r mnt/arch mnt/out
+      - name: send
+        run: |
           sudo btrfs send mnt/out | zstdmt -o out.stream.zst
           file out.stream.zst
 
