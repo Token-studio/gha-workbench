@@ -106,14 +106,14 @@ jobs:
       - name: mount
         run: |
           sudo mkdir mnt
-          sudo mount -t btrfs ./arch.img ./mnt
-          # sudo mount -t btrfs ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
+          # sudo mount -t btrfs ./arch.img ./mnt
+          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime,space_cache
 
       - name: btrfs commands
         run: |
           sudo btrfs subvolume create arch 
-          sudo mv ${{ env.BOOTSTRAP_DIR }}/* mnt/arch/
-          sudo btrfs subvolume snapshot -r mnt/arch mnt/out
+          sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
+          sudo btrfs subvolume snapshot -r ./mnt/arch ./mnt/out
       - name: send
         run: |
           sudo btrfs send mnt/out | zstdmt -o out.stream.zst
