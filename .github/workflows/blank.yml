@@ -106,7 +106,9 @@ jobs:
       - name: mount
         run: |
           sudo mkdir mnt
-          sudo mount -t btrfs ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
+          sudo mount -t btrfs ./arch.img ./mnt
+          # sudo mount -t btrfs ./arch.img ./mnt -o defaults,compress=zstd,noatime,space_cache
+
       - name: btrfs commands
         run: |
           sudo btrfs subvolume create arch 
@@ -116,5 +118,3 @@ jobs:
         run: |
           sudo btrfs send mnt/out | zstdmt -o out.stream.zst
           file out.stream.zst
-
-
