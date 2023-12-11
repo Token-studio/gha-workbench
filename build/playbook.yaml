@@ -1,4 +1,4 @@
-- hosts: ./root.x86_64
+- hosts: chroot
   connection: community.general.chroot
   remote_user: root
   roles:

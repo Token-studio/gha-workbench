@@ -1,0 +1,5 @@
+all:
+  children:
+    chroot:
+      hosts:
+        ./root.x86_64:
