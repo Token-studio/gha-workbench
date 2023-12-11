@@ -88,8 +88,9 @@ jobs:
         run: |
           ls -alh
           pwd
+          which ansible-playbook
       - name: ansible setup
-        run: ansible-galaxy collection install community.general
+        run: sudo ansible-galaxy collection install community.general
       - name: run playbook
         run: sudo ansible-playbook --inventory ./inventory.yaml playbook.yaml
       - name: archive
@@ -122,7 +123,6 @@ jobs:
       - name: mount
         run: |
           sudo mkdir mnt
-          # sudo mount -t btrfs ./arch.img ./mnt
           sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime
 
       - name: create subvol
