@@ -91,7 +91,7 @@ jobs:
       - name: ansible setup
         run: ansible-galaxy collection install community.general
       - name: run playbook
-        run: ansible-playbook --inventory ./inventory.yaml playbook.yaml
+        run: sudo ansible-playbook --inventory ./inventory.yaml playbook.yaml
       - name: archive
         run: sudo tar cf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
