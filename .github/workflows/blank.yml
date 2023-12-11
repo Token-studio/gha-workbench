@@ -78,19 +78,20 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: bootstrap-archive
+          path: build/
 
-      - name: get status
-        run: |
-          ls -alh
-          pwd
       - name: untar
         run: |
           sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
+      - name: get status
+        run: |
+          ls -alh
+          pwd
       - name: ansible setup
         run: ansible-galaxy collection install community.general
       - name: run playbook
-        run: ansible-playbook playbook.yaml --inventory ./inventory.yaml
+        run: ansible-playbook --inventory ./inventory.yaml playbook.yaml
       - name: archive
         run: sudo tar cf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
