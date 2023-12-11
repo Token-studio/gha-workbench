@@ -1,0 +1,5 @@
+- hosts: ./root.x86_64
+  connection: community.general.chroot
+  remote_user: root
+  roles:
+    - hoge

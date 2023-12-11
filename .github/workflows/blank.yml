@@ -80,10 +80,22 @@ jobs:
         run: |
           ls -alh
           pwd
+      - name: untar
+        run: |
           sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
-          ansible --version
-          ansible-galaxy --version
+      - name: ansible setup
+        run: ansible-galaxy collection install community.general
+      - name: run playbook
+        run: ansible-playbook built/playbook.yaml
+      - name: archive
+        run: sudo tar cf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bootstrap-archive
+          path: ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          if-no-files-found: error
 
   make-subvol:
     runs-on: ubuntu-latest
@@ -107,7 +119,7 @@ jobs:
         run: |
           sudo mkdir mnt
           # sudo mount -t btrfs ./arch.img ./mnt
-          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime,space_cache
+          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime
 
       - name: create subvol
         run: |

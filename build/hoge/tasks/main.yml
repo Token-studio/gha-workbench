@@ -1,0 +1,6 @@
+---
+# tasks file for hoge
+- name: Install package vim from repo
+  community.general.pacman:
+    name: vim
+    state: present
