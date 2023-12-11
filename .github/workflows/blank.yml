@@ -107,12 +107,12 @@ jobs:
         run: |
           sudo mkdir mnt
           # sudo mount -t btrfs ./arch.img ./mnt
-          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime
+          sudo mount -t btrfs ./arch.img ./mnt -o defaults,noatime,space_cache
 
       - name: create subvol
         run: |
           cd ./mnt
-          sudo btrfs subvolume create arch 
+          sudo btrfs subvolume create arch
       - name: copy bootstrap files
         run: sudo mv ./${{ env.BOOTSTRAP_DIR }}/* ./mnt/arch/
 
