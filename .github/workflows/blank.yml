@@ -92,9 +92,9 @@ jobs:
       - name: ansible setup
         run: sudo /opt/pipx_bin/ansible-galaxy collection install community.general
       - name: run init playbook
-        run: sudo /opt/pipx_bin/ansible-playbook -vv --inventory ./inventory.yaml init.yaml
+        run: sudo /opt/pipx_bin/ansible-playbook -vvv --inventory ./inventory.yaml init.yaml
       - name: run playbook
-        run: sudo /opt/pipx_bin/ansible-playbook -vv --inventory ./inventory.yaml playbook.yaml
+        run: sudo /opt/pipx_bin/ansible-playbook -vvv --inventory ./inventory.yaml playbook.yaml
       - name: archive
         run: sudo tar cf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
