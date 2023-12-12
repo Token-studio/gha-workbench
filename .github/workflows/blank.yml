@@ -84,7 +84,7 @@ jobs:
         uses: docker://archlinux:latest
         with:
           entrypoint: /bin/bash
-          args: get-chroot.bash 
+          args: build/get-chroot.bash 
 
       - name: untar
         run: |
