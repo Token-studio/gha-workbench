@@ -4,4 +4,4 @@
   ansible.builtin.raw: echo "Server = https://cloudflaremirrors.com/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist
 
 - name: Install python
-  ansible.builtin.raw: echo "Server = pacman -Syu --noconfirm python
+  ansible.builtin.raw: pacman -Syu --noconfirm python
