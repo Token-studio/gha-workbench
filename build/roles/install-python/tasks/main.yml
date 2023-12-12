@@ -1,0 +1,7 @@
+---
+# tasks file for install-python
+- name: Update mirrorlist
+  ansible.builtin.raw: echo "Server = https://cloudflaremirrors.com/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist
+
+- name: Install python
+  ansible.builtin.raw: echo "Server = pacman -Syu --noconfirm python
