@@ -10,6 +10,9 @@
     Server = https://ftp.jaist.ac.jp/pub/Linux/ArchLinux/$repo/os/$arch
     Server = https://repo.jing.rocks/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist
 
+- name: Cat mirror list
+  ansible.builtin.raw: cat /etc/pacman.d/mirrorlist
+
 - name: Add resolver
   ansible.builtin.raw: |-
     echo "nameserver 1.1.1.1
