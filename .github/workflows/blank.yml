@@ -80,6 +80,12 @@ jobs:
           name: bootstrap-archive
           path: build/
 
+      - name: get arch-install-scripts
+        uses: docker://archlinux:latest
+        with:
+          entrypoint: /bin/bash
+          args: get-chroot.sh 
+
       - name: untar
         run: |
           sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
