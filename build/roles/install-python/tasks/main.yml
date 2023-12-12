@@ -3,5 +3,12 @@
 - name: Update mirrorlist
   ansible.builtin.raw: echo "Server = https://cloudflaremirrors.com/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist
 
+- name: Add resolver
+  ansible.builtin.raw: |-
+    echo "nameserver 1.1.1.2
+    nameserver 1.0.0.2
+    nameserver 2606:4700:4700::1112
+    nameserver 2606:4700:4700::1002" > /etc/resolv.conf
+
 - name: Install python
   ansible.builtin.raw: pacman -Syu --noconfirm python
