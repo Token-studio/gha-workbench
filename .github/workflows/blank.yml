@@ -91,6 +91,8 @@ jobs:
           which ansible-galaxy
       - name: ansible setup
         run: sudo /opt/pipx_bin/ansible-galaxy collection install community.general
+      - name: run init playbook
+        run: sudo /opt/pipx_bin/ansible-playbook --inventory ./inventory.yaml init.yaml
       - name: run playbook
         run: sudo /opt/pipx_bin/ansible-playbook --inventory ./inventory.yaml playbook.yaml
       - name: archive

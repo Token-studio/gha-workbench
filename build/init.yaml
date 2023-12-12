@@ -1,5 +1,6 @@
 - hosts: chroot
   connection: community.general.chroot
   remote_user: root
+  gather_facts: false
   roles:
-    - hoge
+    - install-python
