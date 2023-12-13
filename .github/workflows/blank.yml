@@ -80,12 +80,6 @@ jobs:
           name: bootstrap-archive
           path: build/
 
-      - name: get arch-install-scripts
-        uses: docker://archlinux:latest
-        with:
-          entrypoint: /bin/bash
-          args: build/get-chroot.bash 
-
       - name: untar
         run: |
           sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
@@ -94,13 +88,13 @@ jobs:
         run: |
           ls -alh
           pwd
-          which ansible-galaxy
-      - name: ansible setup
-        run: sudo /opt/pipx_bin/ansible-galaxy collection install community.general
-      - name: run init playbook
-        run: sudo /opt/pipx_bin/ansible-playbook -vvv --inventory ./inventory.yaml init.yaml
-      - name: run playbook
-        run: sudo /opt/pipx_bin/ansible-playbook -vvv --inventory ./inventory.yaml playbook.yaml
+
+      - name: Run pacstrap
+        uses: docker://archlinux:latest
+        with:
+          entrypoint: /bin/bash
+          args: build/arch-setup.bash
+
       - name: archive
         run: sudo tar cf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact

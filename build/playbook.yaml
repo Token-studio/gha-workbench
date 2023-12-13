@@ -1,5 +1,0 @@
-- hosts: chroot
-  connection: community.general.chroot
-  remote_user: root
-  roles:
-    - hoge
