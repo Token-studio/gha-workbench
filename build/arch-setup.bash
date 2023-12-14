@@ -5,4 +5,5 @@ Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch
 Server = https://geo.mirror.pkgbuild.com/\$repo/os/\$arch
 EOF
 pacman -Syu --noconfirm arch-install-scripts
-pacstrap ./build/mnt base base-devel linux-hardened linux-hardened-headers python
+cp /usr/bin/pacstrap ./build/
+cp /usr/bin/arch-chroot ./build/
