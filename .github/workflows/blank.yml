@@ -93,14 +93,14 @@ jobs:
           ls -alh
           pwd
           
-      - name: Run pacstrap
+      - name: Get arch-install-scripts
         uses: docker://archlinux:latest
         with:
           entrypoint: /bin/bash
           args: build/arch-setup.bash
 
       - name: Run chroot
-        run: sudo ./arch-chroot mnt
+        run: sudo ./arch-chroot mnt pacman -Syu linux-hardened
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
