@@ -99,8 +99,8 @@ jobs:
           entrypoint: /bin/bash
           args: build/arch-setup.bash
 
-      - name: Run pacstrap
-        run: sudo ./pacstrap mnt base
+      - name: Run chroot
+        run: sudo ./arch-chroot mnt
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
