@@ -107,7 +107,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bootstrap-archive
-          path: ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          path: build/${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
 
   make-subvol:
