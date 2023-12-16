@@ -100,7 +100,7 @@ jobs:
           args: build/arch-setup.bash
 
       - name: Add mirrors for new root
-        run: sudo ./arch-chroot "echo 'Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"
+        run: sudo ./arch-chroot mnt "echo 'Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"
 
       - name: Run chroot
         run: sudo ./arch-chroot mnt pacman -Syu --noconfirm linux-hardened
