@@ -86,7 +86,7 @@ jobs:
           ls -alh ${{ env.BOOTSTRAP_DIR }}
       - name: Bind mount
         run: |-
-          sudo -i
+          su
           mkdir mnt
           mount --bind root.x86_64 mnt
       - name: get status
