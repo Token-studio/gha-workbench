@@ -86,18 +86,13 @@ jobs:
           ls -alh ${{ env.BOOTSTRAP_DIR }}
       - name: Bind mount
         run: |-
-          sudo mkdir mnt
-          sudo mount --bind root.x86_64 mnt
+          sudo -i
+          mkdir mnt
+          mount --bind root.x86_64 mnt
       - name: get status
         run: |
           ls -alh
           pwd
-
-      - name: Get arch-install-scripts
-        uses: docker://archlinux:latest
-        with:
-          entrypoint: /bin/bash
-          args: build/arch-setup.bash
 
       - name: Add mirrors for new root
         run: sudo ./arch-chroot mnt "echo 'Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"
