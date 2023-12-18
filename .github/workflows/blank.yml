@@ -84,11 +84,15 @@ jobs:
         run: |
           sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
-      - name: Bind mount
+      - name: Mount for chroot
         run: |-
-          su
-          mkdir mnt
-          mount --bind root.x86_64 mnt
+          sudo mkdir mnt
+          sudo mount --bind root.x86_64 mnt
+          sudo mount -t proc /proc mnt/proc
+          sudo mount --make-rslave --rbind /sys mnt/sys
+          sudo mount --make-rslave --rbind /dev mnt/dev
+          sudo mount --make-rslave --rbind /run mnt/run
+          
       - name: get status
         run: |
           ls -alh
