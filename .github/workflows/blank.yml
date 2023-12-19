@@ -99,9 +99,9 @@ jobs:
           pwd
 
       - name: Add mirrors for new root
-        run: sudo chroot mnt /bin/bash ls /etc
+        run: sudo chroot mnt ls /etc
       - name: Add mirrors for new root
-        run: sudo chroot mnt /bin/bash echo "Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+        run: sudo chroot mnt echo "Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
       - name: Run chroot
         run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
