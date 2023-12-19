@@ -99,7 +99,7 @@ jobs:
           pwd
 
       - name: Add mirrors for new root
-        run: sudo chroot mnt ls /etc
+        run: sudo chroot mnt ls /etc/pacman.d
       - name: Add mirrors for new root
         run: sudo chroot mnt echo "Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
