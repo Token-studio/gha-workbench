@@ -93,14 +93,18 @@ jobs:
           sudo mount --make-rslave --rbind /dev mnt/dev
           sudo mount --make-rslave --rbind /run mnt/run
           
-      - name: get status
+      - name: get arch-chroot
         run: |
-          ls -alh
-          pwd
+          sudo apt-get update
+          sudo apt-get install -y arch-install-scripts
 
       - name: Add mirrors for new root
         run: sudo cp -r patch/* mnt/
 
+      - name: Run chroot
+        run: sudo chroot mnt pacman-key --init
+      - name: Run chroot
+        run: sudo chroot mnt pacman-key --populate archlinux
       - name: Run chroot
         run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
 
