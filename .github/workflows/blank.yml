@@ -88,11 +88,7 @@ jobs:
         run: |-
           sudo mkdir mnt
           sudo mount --bind root.x86_64 mnt
-          sudo mount -t proc /proc mnt/proc
-          sudo mount --make-rslave --rbind /sys mnt/sys
-          sudo mount --make-rslave --rbind /dev mnt/dev
-          sudo mount --make-rslave --rbind /run mnt/run
-          
+
       - name: get arch-chroot
         run: |
           sudo apt-get update
@@ -102,18 +98,11 @@ jobs:
         run: sudo cp -r patch/* mnt/
 
       - name: Run chroot
-        run: sudo chroot mnt pacman-key --init
+        run: sudo arch-chroot mnt pacman-key --init
       - name: Run chroot
-        run: sudo chroot mnt pacman-key --populate archlinux
+        run: sudo arch-chroot mnt pacman-key --populate archlinux
       - name: Run chroot
-        run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
-
-      - name: Run umount
-        run: |
-          sudo umount mnt/proc
-          sudo umount mnt/sys
-          sudo umount mnt/dev
-          sudo umount mnt/run
+        run: sudo arch-chroot mnt pacman -Syu --noconfirm linux-hardened
 
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
