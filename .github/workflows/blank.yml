@@ -108,6 +108,13 @@ jobs:
       - name: Run chroot
         run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
 
+      - name: Run umount
+        run: |
+          sudo umount mnt/proc
+          sudo umount mnt/sys
+          sudo umount mnt/dev
+          sudo umount mnt/run
+
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
