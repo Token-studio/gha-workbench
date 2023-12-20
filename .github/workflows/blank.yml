@@ -99,12 +99,11 @@ jobs:
           pwd
 
       - name: Add mirrors for new root
-        run: sudo chroot mnt ls /etc/pacman.d
-      - name: Add mirrors for new root
-        run: sudo echo "Server = https://cloudflaremirrors.com/archlinux/\$repo/os/\$arch" > mnt/etc/pacman.d/mirrorlist
+        run: sudo cp patch/* mnt/
 
       - name: Run chroot
         run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
+
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: Upload artifact
