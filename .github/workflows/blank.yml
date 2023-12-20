@@ -99,7 +99,7 @@ jobs:
           pwd
 
       - name: Add mirrors for new root
-        run: sudo cp patch/* mnt/
+        run: sudo cp -r patch/* mnt/
 
       - name: Run chroot
         run: sudo chroot mnt pacman -Syu --noconfirm linux-hardened
