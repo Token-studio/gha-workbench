@@ -149,13 +149,11 @@ jobs:
           sudo btrfs subvolume snapshot -r ./arch ./out
 
       - name: send
-        run: |
-          sudo btrfs send ./mnt/out | zstdmt -o ./out.stream.zst
-          file out.stream.zst
+        run: sudo btrfs send ./mnt/out | zstdmt -o ./out.btrfs.zst
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: bootstrap-archive
-          path: out.stream.zst
+          name: bootstrap-btrfs
+          path: out.btrfs.zst
           if-no-files-found: error
