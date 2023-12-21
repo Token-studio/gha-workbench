@@ -115,7 +115,7 @@ jobs:
 
   make-subvol:
     runs-on: ubuntu-latest
-    needs: fetch
+    needs: build
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Download bootstrap archive
