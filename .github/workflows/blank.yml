@@ -102,7 +102,7 @@ jobs:
       - name: Run chroot
         run: sudo arch-chroot mnt pacman-key --populate archlinux
       - name: Run chroot
-        run: sudo arch-chroot mnt pacman -Syu --noconfirm linux-hardened
+        run: sudo arch-chroot mnt pacman -Syu --noconfirm python linux-hardened linux-hardened-headers vim openssh
 
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
