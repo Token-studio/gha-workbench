@@ -128,7 +128,7 @@ jobs:
 
       - name: mkfs.btrfs
         run: |
-          truncate -s 1G arch.img
+          truncate -s 100G arch.img
           mkfs.btrfs arch.img
 
       - name: mount
