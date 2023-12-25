@@ -106,7 +106,7 @@ jobs:
       - name: Run chroot
         run: sudo arch-chroot mnt pacman -Scc --noconfirm
       - name: Run chroot
-        run: sudo arch-chroot mnt rm /var/cache/pacman/pkg/*
+        run: sudo arch-chroot mnt rm -drf /var/cache/pacman/pkg
 
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
