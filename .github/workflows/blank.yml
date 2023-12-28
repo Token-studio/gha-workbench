@@ -98,11 +98,7 @@ jobs:
         run: sudo cp -r patch/* mnt/
 
       - name: Run chroot
-        run: sudo /opt/pipx_bin/ansible-playbook --inventory inventory.yaml bootstrap.yaml -vvv
-      - name: Run chroot
-        run: sudo arch-chroot mnt pacman -Scc --noconfirm
-      - name: Run chroot
-        run: sudo arch-chroot mnt rm '/var/cache/pacman/pkg/*'
+        run: sudo $(which ansible-playbook) --inventory inventory.yaml bootstrap.yaml -vvv
 
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
