@@ -1,5 +1,5 @@
 ---
-# tasks file for puegeCache
+# tasks file for purgeCache
 - name: Remove file (delete file)
   ansible.builtin.file:
     path: /var/cache/pacman/pkg/*
