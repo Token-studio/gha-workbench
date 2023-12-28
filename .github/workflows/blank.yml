@@ -99,10 +99,12 @@ jobs:
         run: sudo cp -r patch/* mnt/
 
       - name: Run chroot
-        run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml -vvv
+        run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml
 
       - name: archive
         run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
+      - name: list files on archige
+        run: tar tf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
