@@ -1,6 +1,6 @@
 all:
   children:
-    arch-chroot:
+    archChroot:
       hosts:
         bootstrap:
           ansible_host: mnt

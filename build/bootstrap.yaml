@@ -1,9 +1,9 @@
 - name: Install Python
-  hosts: arch-chroot
+  hosts: archChroot
   gather_facts: false
   roles:
-    - role: install-python
+    - role: installPython
 - name: Init env
-  hosts: arch-chroot
+  hosts: archChroot
   roles:
-    - role: purge-cache
+    - role: puegeCache

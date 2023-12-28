@@ -1,5 +1,5 @@
 ---
-# tasks file for install-python
+# tasks file for installPython
 - name: Keyring init
   ansible.builtin.raw: pacman-key --init
 - name: Obtain keyring

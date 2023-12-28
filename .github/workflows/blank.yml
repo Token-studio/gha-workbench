@@ -45,11 +45,12 @@ jobs:
           path: ./${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           key: bootstrap-archive-${{ steps.bootstrap-signature.outputs.signature-hash }}
 
-      - if: ${{ steps.cache-archive.outputs.cache-hit != 'true' }}
-        name: Get bootstrap archive 
+      - name: Get bootstrap archive 
+        if: ${{ steps.cache-archive.outputs.cache-hit != 'true' }}
         run: curl -LO ${{ env.MIRROR_PREFIX }}/archlinux/iso/latest/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
 
       - name: Verify the archive
+        if: ${{ steps.cache-archive.outputs.cache-hit != 'true' }}
         uses: docker://alpine:edge
         with:
           entrypoint: /bin/sh
