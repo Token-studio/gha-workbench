@@ -5,6 +5,5 @@
     - role: install-python
 - name: Init env
   hosts: arch-chroot
-  gather_facts: false
   roles:
     - role: purge-cache
