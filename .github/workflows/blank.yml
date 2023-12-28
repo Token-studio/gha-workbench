@@ -94,17 +94,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y arch-install-scripts
 
-      - name: get ansible role
-        run: ansible-galaxy collection install community.general
-
       - name: Add mirrors for new root
         run: sudo cp -r patch/* mnt/
-
-      - name: Which ansible-playbook
-        run: which ansible-playbook
-
-      - name: Which arch-chroot
-        run: which arch-chroot
 
       - name: Run chroot
         run: sudo /opt/pipx_bin/ansible-playbook --inventory inventory.yaml bootstrap.yaml -vvv

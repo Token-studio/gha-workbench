@@ -1,5 +1,5 @@
 - name: Init env
-  hosts: chroot
+  hosts: arch-chroot
   gather_facts: false
   roles:
     - role: install-python
