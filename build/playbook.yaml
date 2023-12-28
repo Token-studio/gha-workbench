@@ -6,4 +6,5 @@
 - name: Init env
   hosts: archChroot
   roles:
+    - role: installPackages
     - role: purgeCache
