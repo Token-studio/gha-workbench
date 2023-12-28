@@ -101,11 +101,7 @@ jobs:
         run: sudo cp -r patch/* mnt/
 
       - name: Run chroot
-        run: sudo arch-chroot mnt pacman-key --init
-      - name: Run chroot
-        run: sudo arch-chroot mnt pacman-key --populate archlinux
-      - name: Run chroot
-        run: sudo arch-chroot mnt pacman -Syu --noprogressbar --noconfirm python
+        run: ansible-playbook --inventory inventory.yaml bootstrap.yaml
       - name: Run chroot
         run: sudo arch-chroot mnt pacman -Scc --noconfirm
       - name: Run chroot
