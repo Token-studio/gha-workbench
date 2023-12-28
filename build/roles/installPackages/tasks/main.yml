@@ -6,6 +6,7 @@
       - linux-hardened
       - linux-hardened-headers
       - amd-ucode
+      - nftables
       - vim
       - cloud-init
       - sudo
