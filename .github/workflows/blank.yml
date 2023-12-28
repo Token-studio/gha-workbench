@@ -100,8 +100,14 @@ jobs:
       - name: Add mirrors for new root
         run: sudo cp -r patch/* mnt/
 
+      - name: Which ansible-playbook
+        run: which ansible-playbook
+
+      - name: Which arch-chroot
+        run: which arch-chroot
+
       - name: Run chroot
-        run: ansible-playbook --inventory inventory.yaml bootstrap.yaml
+        run: sudo ansible-playbook --inventory inventory.yaml bootstrap.yaml
       - name: Run chroot
         run: sudo arch-chroot mnt pacman -Scc --noconfirm
       - name: Run chroot
