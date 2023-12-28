@@ -102,7 +102,7 @@ jobs:
       - name: Run chroot
         run: sudo arch-chroot mnt pacman-key --populate archlinux
       - name: Run chroot
-        run: sudo arch-chroot mnt pacman -Syu --noconfirm python
+        run: sudo arch-chroot mnt pacman -Syu --noprogressbar --noconfirm python
       - name: Run chroot
         run: sudo arch-chroot mnt pacman -Scc --noconfirm
       - name: Run chroot
