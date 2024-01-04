@@ -18,13 +18,13 @@
   ansible.builtin.package_facts:
     manager: pacman
 
-- name: Write package list to /packages.json
+- name: Write package list to /packages.yaml
   ansible.builtin.blockinfile:
     create: true
-    path: /packages.json
+    path: /packages.yaml
     block: "{{ ansible_facts.packages }}"
 
-- name: Store file into ./packages.json
+- name: Store file into ./packages.yaml
   ansible.builtin.fetch:
-    src: /packages.json
-    dest: ./packages.json
+    src: /packages.yaml
+    dest: ./packages.yaml
