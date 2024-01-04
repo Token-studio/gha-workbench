@@ -10,6 +10,7 @@
       - vim
       - cloud-init
       - sudo
+      - jq
     state: latest
     update_cache: true
 
@@ -17,6 +18,13 @@
   ansible.builtin.package_facts:
     manager: pacman
 
-- name: Print the package facts
-  ansible.builtin.debug:
-    var: ansible_facts.packages
+- name: Write package list to /packages.json
+  ansible.builtin.blockinfile:
+    create: true
+    path: /packages.json
+    block: { { ansible_facts.packages } }
+
+- name: Store file into ./packages.json
+  ansible.builtin.fetch:
+    src: /packages.json
+    dest: ./packages.json

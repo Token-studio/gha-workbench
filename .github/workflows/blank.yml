@@ -112,6 +112,13 @@ jobs:
           path: build/${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages.json
+          path: build/packages.json
+          if-no-files-found: error
+
   make-subvol:
     runs-on: ubuntu-latest
     needs: build
