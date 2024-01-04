@@ -115,8 +115,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: packages.json
-          path: build/packages.json
+          name: packages.yaml
+          path: build/packages.yaml
           if-no-files-found: error
 
   make-subvol:
