@@ -12,3 +12,11 @@
       - sudo
     state: latest
     update_cache: true
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: pacman
+
+- name: Print the package facts
+  ansible.builtin.debug:
+    var: ansible_facts.packages
