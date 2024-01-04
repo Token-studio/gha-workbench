@@ -22,7 +22,7 @@
   ansible.builtin.blockinfile:
     create: true
     path: /packages.json
-    block: { { ansible_facts.packages } }
+    block: "{{ ansible_facts.packages }}"
 
 - name: Store file into ./packages.json
   ansible.builtin.fetch:
