@@ -8,6 +8,9 @@ on:
   push:
     branches: [ "main" ]
 
+  schedule:
+    - cron: "0 18 * * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -122,6 +125,7 @@ jobs:
   make-subvol:
     runs-on: ubuntu-latest
     needs: build
+    if: false
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Download bootstrap archive
