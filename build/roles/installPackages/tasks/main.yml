@@ -17,7 +17,7 @@
       - btrfs-progs
       - efibootmgr
       - efitools
-      - eifvar
+      - efivar
       - sbctl
       - file
       - cloud-init
