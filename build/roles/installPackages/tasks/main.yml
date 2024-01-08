@@ -11,6 +11,23 @@
       - cloud-init
       - sudo
       - jq
+      - fish
+      - python
+      - containerd
+      - btrfs-progs
+      - efibootmgr
+      - efitools
+      - eifvar
+      - sbctl
+      - file
+      - cloud-init
+      - zstd
+      - openssh
+      - nvme-cli
+      - kubectl
+      - helm
+      - lldpd
+      - sequoia-sq
     state: latest
     update_cache: true
 
