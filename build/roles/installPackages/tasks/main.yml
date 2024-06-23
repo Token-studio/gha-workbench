@@ -15,6 +15,7 @@
       - helm
       - jq
       - kubectl
+      - libvirt
       - linux-hardened
       - linux-hardened-headers
       - lldpd
