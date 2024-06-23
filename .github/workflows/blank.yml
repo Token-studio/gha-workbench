@@ -13,9 +13,8 @@ on:
 
 env:
   MIRROR_PREFIX: https://cloudflaremirrors.com
-  BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.gz
-  BOOTSTRAP_ARCHIVE_SIGNATURE_NAME: archlinux-bootstrap-x86_64.tar.gz.sig
-  ZSTD_BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.zst
+  BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.zst
+  BOOTSTRAP_ARCHIVE_SIGNATURE_NAME: archlinux-bootstrap-x86_64.tar.zst.sig
   BOOTSTRAP_DIR: root.x86_64
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -56,14 +55,11 @@ jobs:
           entrypoint: /bin/sh
           args: fetch/verify.sh 
 
-      - name: Re-compress bootstrap archive
-        run: zstdcat ${{ env.BOOTSTRAP_ARCHIVE_NAME }} | zstdmt -o ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} -
-
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: bootstrap-archive
-          path: ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          path: ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
 
   build:
@@ -83,7 +79,7 @@ jobs:
 
       - name: untar
         run: |
-          sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          sudo tar xpf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
       - name: Mount for chroot
         run: |-
@@ -102,14 +98,14 @@ jobs:
         run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml
 
       - name: archive
-        run: sudo tar caf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
+        run: sudo tar caf ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: list files on archige
-        run: tar tf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+        run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: bootstrap-archive
-          path: build/${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+          path: build/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
 
       - name: Upload artifact
@@ -131,7 +127,7 @@ jobs:
           name: bootstrap-archive
 
       - name : untar
-        run: sudo tar xpf ${{ env.ZSTD_BOOTSTRAP_ARCHIVE_NAME }}
+        run: sudo tar xpf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
 
       - name: mkfs.btrfs
         run: |
