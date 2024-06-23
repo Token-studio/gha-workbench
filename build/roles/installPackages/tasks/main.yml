@@ -3,31 +3,30 @@
 - name: Install packages
   community.general.pacman:
     name:
-      - linux-hardened
-      - linux-hardened-headers
       - amd-ucode
-      - nftables
-      - vim
-      - cloud-init
-      - sudo
-      - jq
-      - fish
-      - python
-      - containerd
       - btrfs-progs
+      - cloud-init
+      - containerd
       - efibootmgr
       - efitools
       - efivar
-      - sbctl
       - file
-      - cloud-init
-      - zstd
-      - openssh
-      - nvme-cli
-      - kubectl
+      - fish
       - helm
+      - jq
+      - kubectl
+      - linux-hardened
+      - linux-hardened-headers
       - lldpd
+      - nftables
+      - nvme-cli
+      - openssh
+      - python
+      - sbctl
       - sequoia-sq
+      - sudo
+      - vim
+      - zstd
     state: latest
     update_cache: true
 
@@ -40,6 +39,7 @@
     create: true
     path: /packages.yaml
     block: "{{ ansible_facts.packages }}"
+    mode: 600
 
 - name: Store file into ./packages.yaml
   ansible.builtin.fetch:
