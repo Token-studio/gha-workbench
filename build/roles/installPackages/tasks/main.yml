@@ -35,3 +35,4 @@
       - zstd
     state: latest
     update_cache: true
+  notify: Create packages.yaml
