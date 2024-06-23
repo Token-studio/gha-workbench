@@ -107,6 +107,7 @@ jobs:
           name: bootstrap-archive
           path: build/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
+          overwrite: true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
