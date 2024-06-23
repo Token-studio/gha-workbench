@@ -4,14 +4,14 @@
   community.general.pacman:
     name:
       - amd-ucode
+      - base
       - btrfs-progs
       - cloud-init
-      - containerd
       - efibootmgr
       - efitools
       - efivar
-      - file
       - fish
+      - fisher
       - helm
       - jq
       - kubectl
@@ -19,14 +19,19 @@
       - linux-hardened
       - linux-hardened-headers
       - lldpd
+      - mlocate
       - nftables
       - nvme-cli
       - openssh
+      - paxtest
+      - pkgfile
       - python
       - sbctl
+      - sbsigntools
       - sequoia-sq
       - sudo
       - vim
+      - yq
       - zstd
     state: latest
     update_cache: true
