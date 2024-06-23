@@ -2,9 +2,9 @@
   hosts: archChroot
   gather_facts: false
   roles:
-    - role: installPython
+    - role: install_python
 - name: Init env
   hosts: archChroot
   roles:
-    - role: installPackages
-    - role: purgeCache
+    - role: install_packages
+    - role: purge_cache
