@@ -39,7 +39,7 @@ jobs:
 
       - name: Cache bootstrap archive
         id: cache-archive
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           key: bootstrap-archive-${{ steps.bootstrap-signature.outputs.signature-hash }}
@@ -56,7 +56,7 @@ jobs:
           args: fetch/verify.sh 
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bootstrap-archive
           path: ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
@@ -72,7 +72,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       - name: Download bootstrap archive
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bootstrap-archive
           path: build/
@@ -102,14 +102,14 @@ jobs:
       - name: list files on archige
         run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bootstrap-archive
           path: build/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: packages.yaml
           path: build/packages.yaml
@@ -122,7 +122,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Download bootstrap archive
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bootstrap-archive
 
@@ -155,7 +155,7 @@ jobs:
         run: sudo btrfs send ./mnt/out | zstdmt -o ./out.btrfs.zst
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bootstrap-btrfs
           path: out.btrfs.zst
