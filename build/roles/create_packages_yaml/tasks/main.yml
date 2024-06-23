@@ -1,5 +1,5 @@
 ---
-# handlers file for install_packages
+# tasks file for create_packages_yaml
 - name: Gather the package facts
   ansible.builtin.package_facts:
     manager: pacman
