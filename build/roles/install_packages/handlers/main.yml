@@ -2,4 +2,4 @@
 # handlers file for install_packages
 - name: Create packages.yaml
   ansible.builtin.include_tasks:
-    file: createPackageList.yaml
+    file: create_package_list.yml
