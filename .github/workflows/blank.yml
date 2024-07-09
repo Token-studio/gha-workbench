@@ -145,7 +145,7 @@ jobs:
         uses: oras-project/setup-oras@v1
 
       - name: Push artifact
-        run: oras blob push ghcr.io/token-studio/gha-workbench/${{ env.BOOTSTRAP_ARCHIVE_PREFIX }}:${{ env.BOOTSTRAP_ARCHIVE_SUFIX }} ./${{ env.BOOTSTRAP_ARCHIVE_NAME }} --manifest-config /dev/null:application/vnd.acme.rocket.config 
+        run: oras blob push ghcr.io/token-studio/gha-workbench/${{ env.BOOTSTRAP_ARCHIVE_PREFIX }}:${{ env.BOOTSTRAP_ARCHIVE_SUFIX }} ./${{ env.BOOTSTRAP_ARCHIVE_NAME }} --media-type application/vnd.acme.rocket.config 
 
   make-subvol:
     runs-on: ubuntu-latest
