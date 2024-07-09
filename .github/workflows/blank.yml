@@ -14,6 +14,8 @@ on:
 env:
   MIRROR_PREFIX: https://cloudflaremirrors.com
   BOOTSTRAP_ARCHIVE_NAME: archlinux-bootstrap-x86_64.tar.zst
+  BOOTSTRAP_ARCHIVE_PREFIX: archlinux-bootstrap-x86_64
+  BOOTSTRAP_ARCHIVE_SUFIX: tar.zst
   BOOTSTRAP_ARCHIVE_SIGNATURE_NAME: archlinux-bootstrap-x86_64.tar.zst.sig
   BOOTSTRAP_DIR: root.x86_64
 
@@ -143,7 +145,7 @@ jobs:
         uses: oras-project/setup-oras@v1
 
       - name: Push artifact
-        run: oras blob push ghcr.io/token-studio/gha-workbench/bootstrap:latest ./${{ env.BOOTSTRAP_ARCHIVE_NAME }} --verbose
+        run: oras blob push ghcr.io/token-studio/gha-workbench/${{ env.BOOTSTRAP_ARCHIVE_PREFIX }}:${{ env.BOOTSTRAP_ARCHIVE_SUFIX }} ./${{ env.BOOTSTRAP_ARCHIVE_NAME }} --manifest-config /dev/null:application/vnd.acme.rocket.config 
 
   make-subvol:
     runs-on: ubuntu-latest
