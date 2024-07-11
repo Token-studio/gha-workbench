@@ -140,7 +140,7 @@ jobs:
         uses: oras-project/setup-oras@v1
 
       - name: Push artifact
-        run: oras push ghcr.io/${{ GITHUB_ACTION_REPOSITORY }}/${{ env.BOOTSTRAP_ARCHIVE_PREFIX }}:latest ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
+        run: oras push ghcr.io/${{ github.repository }}/${{ env.BOOTSTRAP_ARCHIVE_PREFIX }}:latest ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
 
   make-subvol:
     runs-on: ubuntu-latest
