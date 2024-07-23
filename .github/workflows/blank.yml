@@ -106,7 +106,7 @@ jobs:
         run: sudo tar caf ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: list files on archige
         run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
-        if: false
+        if: true
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
