@@ -114,7 +114,10 @@ jobs:
           path: build/${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           if-no-files-found: error
           overwrite: true
-
+      - name: ls here
+        run: ls
+      - name: ls build
+        run: ls build
       - name: mv file
         run: mv build/packages.yaml ./
       - name: Upload artifact
