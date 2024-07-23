@@ -103,7 +103,7 @@ jobs:
         run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml -v
 
       - name: archive
-        run: sudo tar cafpS ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
+        run: sudo tar cafpS ${{ env.BOOTSTRAP_ARCHIVE_NAME }} . -C ${{ env.BOOTSTRAP_DIR }}
       - name: list files in archive
         run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
         if: true
