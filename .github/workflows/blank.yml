@@ -117,7 +117,6 @@ jobs:
 
       - name: mv file
         run: mv build/packages.yaml ./
-        if: false
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
