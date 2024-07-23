@@ -20,7 +20,7 @@ env:
   BOOTSTRAP_ARCHIVE_PREFIX: archlinux-bootstrap-x86_64
   BOOTSTRAP_ARCHIVE_SUFIX: tar.zst
   BOOTSTRAP_ARCHIVE_SIGNATURE_NAME: archlinux-bootstrap-x86_64.tar.zst.sig
-  BOOTSTRAP_DIR: root.x86_64
+  BOOTSTRAP_DIR: root.x86_64/
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -103,7 +103,7 @@ jobs:
         run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml -v
 
       - name: archive
-        run: sudo tar cafpS ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}/root.x86_64/
+        run: sudo tar cafpS ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
       - name: list files on archige
         run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
         if: false
