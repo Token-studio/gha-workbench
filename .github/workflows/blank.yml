@@ -84,7 +84,7 @@ jobs:
 
       - name: untar
         run: |
-          sudo tar xpf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
+          sudo tar xpfS ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
           ls -alh ${{ env.BOOTSTRAP_DIR }}
       - name: Mount for chroot
         run: |-
@@ -97,16 +97,16 @@ jobs:
           sudo apt-get install -y arch-install-scripts
 
       - name: Add mirrors for new root
-        run: sudo cp -r patch/* mnt/
+        run: sudo cp -ar patch/* mnt/
 
       - name: Run chroot
         run: sudo $(which ansible-playbook) --inventory inventory.yaml playbook.yaml -v
 
       - name: archive
-        run: sudo tar caf ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}
+        run: sudo tar cafpS ${{ env.BOOTSTRAP_ARCHIVE_NAME }} ${{ env.BOOTSTRAP_DIR }}/root.x86_64/
       - name: list files on archige
         run: tar tf ${{ env.BOOTSTRAP_ARCHIVE_NAME }}
-        if: true
+        if: false
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -115,11 +115,14 @@ jobs:
           if-no-files-found: error
           overwrite: true
 
+      - name: mv file
+        run: mv build/packages.yaml ./
+        if: false
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: packages.yaml
-          path: build/packages.yaml
+          path: packages.yaml
           if-no-files-found: error
 
   push:
